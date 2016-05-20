@@ -109,9 +109,9 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
              */
             function get(storeName, key) {
                 var deferred = $q.defer();
-                db.table(storeName).get(key, function (data) {
-                    deferred.resolve(data);
-                });
+                db.table(storeName).get(key)
+                  .then(deferred.resolve)
+                  .catch(deferred.reject);
                 return deferred.promise;
             }
 
@@ -203,9 +203,9 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
              */
             function listByIndex(storeName, index, key) {
                 var deferred = $q.defer();
-                db.table(storeName).where(index).equals(key).toArray(function (data) {
-                    deferred.resolve(data);
-                });
+                db.table(storeName).where(index).equals(key).toArray()
+                  .then(deferred.resolve)
+                  .catch(deferred.reject);
                 return deferred.promise;
             }
 
